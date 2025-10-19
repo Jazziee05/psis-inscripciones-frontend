@@ -1,0 +1,52 @@
+<div class="page-header">
+  <h1>Nueva Matrícula</h1>
+</div>
+
+<div *ngIf="loadingData" class="loading">Cargando datos...</div>
+
+<div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+<div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+
+<div class="card" *ngIf="!loadingData">
+  <form [formGroup]="enrollmentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="student">Alumno *</label>
+      <select 
+        id="student" 
+        formControlName="student"
+        [class.error]="f['student'].invalid && f['student'].touched"
+      >
+        <option value="">Seleccione un alumno</option>
+        <option *ngFor="let student of students" [value]="student.id">
+          {{ student.last_name }}, {{ student.first_name }} ({{ student.id_number }})
+        </option>
+      </select>
+      <span class="error" *ngIf="f['student'].invalid && f['student'].touched">
+        <span *ngIf="f['student'].errors?.['required']">Debe seleccionar un alumno</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="course">Curso *</label>
+      <select 
+        id="course" 
+        formControlName="course"
+        [class.error]="f['course'].invalid && f['course'].touched"
+      >
+        <option value="">Seleccione un curso</option>
+        <option *ngFor="let course of courses" [value]="course.id">
+          {{ course.code }} - {{ course.title }} (Capacidad: {{ course.capacity }})
+        </option>
+      </select>
+      <span class="error" *ngIf="f['course'].invalid && f['course'].touched">
+        <span *ngIf="f['course'].errors?.['required']">Debe seleccionar un curso</span>
+      </span>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn btn-primary" [disabled]="loading || loadingData">Matricular</button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+    </div>
+  </form>
+</div>

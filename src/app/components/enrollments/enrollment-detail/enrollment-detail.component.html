@@ -1,0 +1,67 @@
+<div class="page-header">
+  <h1>Detalle de Matriculación</h1>
+  <div class="actions">
+    <button (click)="deleteEnrollment()" class="btn btn-danger">Eliminar</button>
+    <a routerLink="/enrollments" class="btn btn-secondary">Volver</a>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading">Cargando...</div>
+
+<div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+<div *ngIf="enrollment" class="card">
+  <h2>Información de la Matriculación</h2>
+  <div class="detail-grid">
+    <div class="detail-item">
+      <strong>ID:</strong>
+      <span>{{ enrollment.id }}</span>
+    </div>
+    <div class="detail-item">
+      <strong>Fecha de Inscripción:</strong>
+      <span>{{ enrollment.enrolled_at | date:'dd/MM/yyyy HH:mm' }}</span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="student" class="card">
+  <h2>Información del Alumno</h2>
+  <div class="detail-grid">
+    <div class="detail-item">
+      <strong>Nombre Completo:</strong>
+      <span>{{ student.first_name }} {{ student.last_name }}</span>
+    </div>
+    <div class="detail-item">
+      <strong>Email:</strong>
+      <span>{{ student.email }}</span>
+    </div>
+    <div class="detail-item">
+      <strong>Cédula:</strong>
+      <span>{{ student.id_number }}</span>
+    </div>
+  </div>
+  <div class="card-actions">
+    <a [routerLink]="['/students', student.id]" class="btn btn-accent">Ver Perfil del Alumno</a>
+  </div>
+</div>
+
+<div *ngIf="course" class="card">
+  <h2>Información del Curso</h2>
+  <div class="detail-grid">
+    <div class="detail-item">
+      <strong>Código:</strong>
+      <span>{{ course.code }}</span>
+    </div>
+    <div class="detail-item">
+      <strong>Título:</strong>
+      <span>{{ course.title }}</span>
+    </div>
+    <div class="detail-item">
+      <strong>Capacidad:</strong>
+      <span>{{ course.capacity }} alumnos</span>
+    </div>
+  </div>
+  <div class="card-actions">
+    <a [routerLink]="['/courses', course.id]" class="btn btn-accent">Ver Detalle del Curso</a>
+  </div>
+</div>

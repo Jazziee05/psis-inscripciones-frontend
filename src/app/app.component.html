@@ -1,0 +1,14 @@
+<nav class="navbar">
+  <div class="navbar-content">
+    <h1 class="navbar-logo">PSIS - Sistema de Matrículas</h1>
+    <ul class="navbar-menu">
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a></li>
+      <li><a routerLink="/students" routerLinkActive="active">Alumnos</a></li>
+      <li><a routerLink="/courses" routerLinkActive="active">Cursos</a></li>
+      <li><a routerLink="/enrollments" routerLinkActive="active">Matrículas</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

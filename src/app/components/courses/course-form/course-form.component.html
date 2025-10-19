@@ -1,0 +1,58 @@
+<div class="page-header">
+  <h1>{{ isEditMode ? 'Editar Curso' : 'Nuevo Curso' }}</h1>
+</div>
+
+<div *ngIf="loading" class="loading">Cargando...</div>
+
+<div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+<div class="card" *ngIf="!loading">
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="code">Código *</label>
+      <input 
+        type="text" 
+        id="code" 
+        formControlName="code"
+        [class.error]="f['code'].invalid && f['code'].touched"
+      />
+      <span class="error" *ngIf="f['code'].invalid && f['code'].touched">
+        <span *ngIf="f['code'].errors?.['required']">El código es requerido</span>
+        <span *ngIf="f['code'].errors?.['maxlength']">Máximo 10 caracteres</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="title">Título *</label>
+      <input 
+        type="text" 
+        id="title" 
+        formControlName="title"
+        [class.error]="f['title'].invalid && f['title'].touched"
+      />
+      <span class="error" *ngIf="f['title'].invalid && f['title'].touched">
+        <span *ngIf="f['title'].errors?.['required']">El título es requerido</span>
+        <span *ngIf="f['title'].errors?.['maxlength']">Máximo 120 caracteres</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="capacity">Capacidad *</label>
+      <input 
+        type="number" 
+        id="capacity" 
+        formControlName="capacity"
+        [class.error]="f['capacity'].invalid && f['capacity'].touched"
+      />
+      <span class="error" *ngIf="f['capacity'].invalid && f['capacity'].touched">
+        <span *ngIf="f['capacity'].errors?.['required']">La capacidad es requerida</span>
+        <span *ngIf="f['capacity'].errors?.['min']">Mínimo 1</span>
+      </span>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn btn-primary" [disabled]="loading">{{ isEditMode ? 'Actualizar' : 'Crear' }}</button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,148 @@
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  padding: 3rem 0;
+  background: linear-gradient(135deg, #7400b8 0%, #5390d9 50%, #48bfe3 100%);
+  color: white;
+  border-radius: 15px;
+  margin-bottom: 3rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.card-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.feature-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.feature-card p {
+  color: #666;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #7400b8;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #5a0090;
+}
+
+.btn-secondary {
+  background: #5390d9;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #3d75b8;
+}
+
+.btn-pdf {
+  background: #48bfe3;
+  color: white;
+}
+
+.btn-pdf:hover {
+  background: #2fa3c5;
+}
+
+.info-section {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.info-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #7400b8;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+}
+
+.features-list li {
+  padding: 0.75rem 0;
+  font-size: 1.1rem;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+
+.features-list li:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

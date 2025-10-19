@@ -1,0 +1,59 @@
+<div class="page-header">
+  <h1>Gestión de Cursos</h1>
+  <div class="actions">
+    <a routerLink="/courses/new" class="btn btn-primary">+ Nuevo Curso</a>
+    <a [href]="pdfAllUrl" target="_blank" class="btn btn-accent">📄 Descargar PDF Todos</a>
+  </div>
+</div>
+
+<div class="search-box">
+  <input 
+    type="text" 
+    [(ngModel)]="searchTerm" 
+    (keyup.enter)="onSearch()" 
+    placeholder="Buscar por código o título..."
+  />
+</div>
+
+<div *ngIf="loading" class="loading">Cargando cursos...</div>
+
+<div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+<div *ngIf="!loading && courses.length === 0" class="empty-state">
+  <p>No se encontraron cursos</p>
+</div>
+
+<div *ngIf="!loading && courses.length > 0" class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Código</th>
+        <th>Título</th>
+        <th>Capacidad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of courses">
+        <td>{{ course.id }}</td>
+        <td>{{ course.code }}</td>
+        <td>{{ course.title }}</td>
+        <td>{{ course.capacity }}</td>
+        <td>
+          <div class="table-actions">
+            <a [routerLink]="['/courses', course.id]" class="btn btn-secondary">Ver</a>
+            <a [routerLink]="['/courses/edit', course.id]" class="btn btn-accent">Editar</a>
+            <button (click)="deleteCourse(course.id!)" class="btn btn-danger">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination" *ngIf="totalCount > 20">
+    <button (click)="previousPage()" [disabled]="!hasPrevious">Anterior</button>
+    <span class="page-info">Página {{ currentPage }}</span>
+    <button (click)="nextPage()" [disabled]="!hasNext">Siguiente</button>
+  </div>
+</div>

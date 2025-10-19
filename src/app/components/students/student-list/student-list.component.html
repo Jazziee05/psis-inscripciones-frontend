@@ -1,0 +1,61 @@
+<div class="page-header">
+  <h1>Gestión de Alumnos</h1>
+  <div class="actions">
+    <a routerLink="/students/new" class="btn btn-primary">+ Nuevo Alumno</a>
+    <a [href]="pdfAllUrl" target="_blank" class="btn btn-accent">📄 Descargar PDF Todos</a>
+  </div>
+</div>
+
+<div class="search-box">
+  <input 
+    type="text" 
+    [(ngModel)]="searchTerm" 
+    (keyup.enter)="onSearch()" 
+    placeholder="Buscar por nombre, apellido, email o cédula..."
+  />
+</div>
+
+<div *ngIf="loading" class="loading">Cargando alumnos...</div>
+
+<div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+<div *ngIf="!loading && students.length === 0" class="empty-state">
+  <p>No se encontraron alumnos</p>
+</div>
+
+<div *ngIf="!loading && students.length > 0" class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Cédula</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{ student.id }}</td>
+        <td>{{ student.first_name }}</td>
+        <td>{{ student.last_name }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.id_number }}</td>
+        <td>
+          <div class="table-actions">
+            <a [routerLink]="['/students', student.id]" class="btn btn-secondary">Ver</a>
+            <a [routerLink]="['/students/edit', student.id]" class="btn btn-accent">Editar</a>
+            <button (click)="deleteStudent(student.id!)" class="btn btn-danger">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination" *ngIf="totalCount > 20">
+    <button (click)="previousPage()" [disabled]="!hasPrevious">Anterior</button>
+    <span class="page-info">Página {{ currentPage }}</span>
+    <button (click)="nextPage()" [disabled]="!hasNext">Siguiente</button>
+  </div>
+</div>

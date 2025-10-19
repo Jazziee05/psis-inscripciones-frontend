@@ -1,0 +1,63 @@
+<div class="page-header">
+  <h1>Detalle del Alumno</h1>
+  <div class="actions">
+    <a [routerLink]="['/students/edit', studentId]" class="btn btn-accent">Editar</a>
+    <button (click)="downloadPdf()" class="btn btn-primary">📄 Descargar PDF</button>
+    <a routerLink="/students" class="btn btn-secondary">Volver</a>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading">Cargando...</div>
+
+<div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+<div *ngIf="student" class="card">
+  <h2>Información Personal</h2>
+  <div class="detail-grid">
+    <div class="detail-item">
+      <strong>ID:</strong>
+      <span>{{ student.id }}</span>
+    </div>
+    <div class="detail-item">
+      <strong>Nombre:</strong>
+      <span>{{ student.first_name }}</span>
+    </div>
+    <div class="detail-item">
+      <strong>Apellido:</strong>
+      <span>{{ student.last_name }}</span>
+    </div>
+    <div class="detail-item">
+      <strong>Email:</strong>
+      <span>{{ student.email }}</span>
+    </div>
+    <div class="detail-item">
+      <strong>Cédula:</strong>
+      <span>{{ student.id_number }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Cursos Inscritos</h2>
+  
+  <div *ngIf="courses.length === 0" class="empty-state">
+    <p>El alumno no está inscrito en ningún curso</p>
+  </div>
+
+  <table *ngIf="courses.length > 0">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Título</th>
+        <th>Fecha de Inscripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of courses">
+        <td>{{ course.code }}</td>
+        <td>{{ course.title }}</td>
+        <td>{{ course.enrolled_at | date:'dd/MM/yyyy HH:mm' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

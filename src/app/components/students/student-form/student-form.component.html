@@ -1,0 +1,73 @@
+<div class="page-header">
+  <h1>{{ isEditMode ? 'Editar Alumno' : 'Nuevo Alumno' }}</h1>
+</div>
+
+<div *ngIf="loading" class="loading">Cargando...</div>
+
+<div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+<div class="card" *ngIf="!loading">
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="first_name">Nombre *</label>
+      <input 
+        type="text" 
+        id="first_name" 
+        formControlName="first_name"
+        [class.error]="f['first_name'].invalid && f['first_name'].touched"
+      />
+      <span class="error" *ngIf="f['first_name'].invalid && f['first_name'].touched">
+        <span *ngIf="f['first_name'].errors?.['required']">El nombre es requerido</span>
+        <span *ngIf="f['first_name'].errors?.['maxlength']">Máximo 80 caracteres</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="last_name">Apellido *</label>
+      <input 
+        type="text" 
+        id="last_name" 
+        formControlName="last_name"
+        [class.error]="f['last_name'].invalid && f['last_name'].touched"
+      />
+      <span class="error" *ngIf="f['last_name'].invalid && f['last_name'].touched">
+        <span *ngIf="f['last_name'].errors?.['required']">El apellido es requerido</span>
+        <span *ngIf="f['last_name'].errors?.['maxlength']">Máximo 80 caracteres</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input 
+        type="email" 
+        id="email" 
+        formControlName="email"
+        [class.error]="f['email'].invalid && f['email'].touched"
+      />
+      <span class="error" *ngIf="f['email'].invalid && f['email'].touched">
+        <span *ngIf="f['email'].errors?.['required']">El email es requerido</span>
+        <span *ngIf="f['email'].errors?.['email']">Email inválido</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="id_number">Cédula *</label>
+      <input 
+        type="text" 
+        id="id_number" 
+        formControlName="id_number"
+        [class.error]="f['id_number'].invalid && f['id_number'].touched"
+      />
+      <span class="error" *ngIf="f['id_number'].invalid && f['id_number'].touched">
+        <span *ngIf="f['id_number'].errors?.['required']">La cédula es requerida</span>
+        <span *ngIf="f['id_number'].errors?.['minlength']">Mínimo 4 caracteres</span>
+        <span *ngIf="f['id_number'].errors?.['maxlength']">Máximo 20 caracteres</span>
+      </span>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn btn-primary" [disabled]="loading">{{ isEditMode ? 'Actualizar' : 'Crear' }}</button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+    </div>
+  </form>
+</div>
