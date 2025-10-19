@@ -9,19 +9,82 @@ import { CourseDetailComponent } from './components/courses/course-detail/course
 import { EnrollmentListComponent } from './components/enrollments/enrollment-list/enrollment-list.component';
 import { EnrollmentFormComponent } from './components/enrollments/enrollment-form/enrollment-form.component';
 import { EnrollmentDetailComponent } from './components/enrollments/enrollment-detail/enrollment-detail.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'students', component: StudentListComponent },
-  { path: 'students/new', component: StudentFormComponent },
-  { path: 'students/edit/:id', component: StudentFormComponent },
-  { path: 'students/:id', component: StudentDetailComponent },
-  { path: 'courses', component: CourseListComponent },
-  { path: 'courses/new', component: CourseFormComponent },
-  { path: 'courses/edit/:id', component: CourseFormComponent },
-  { path: 'courses/:id', component: CourseDetailComponent },
-  { path: 'enrollments', component: EnrollmentListComponent },
-  { path: 'enrollments/new', component: EnrollmentFormComponent },
-  { path: 'enrollments/:id', component: EnrollmentDetailComponent },
-  { path: '**', redirectTo: '' }
+  // Rutas públicas
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  
+  // Ruta de inicio (redirige a login si no está autenticado)
+  { 
+    path: '', 
+    component: HomeComponent,
+    canActivate: [AuthGuard]
+  },
+  
+  // Rutas protegidas
+  { 
+    path: 'students', 
+    component: StudentListComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'students/new', 
+    component: StudentFormComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'students/edit/:id', 
+    component: StudentFormComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'students/:id', 
+    component: StudentDetailComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'courses', 
+    component: CourseListComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'courses/new', 
+    component: CourseFormComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'courses/edit/:id', 
+    component: CourseFormComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'courses/:id', 
+    component: CourseDetailComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'enrollments', 
+    component: EnrollmentListComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'enrollments/new', 
+    component: EnrollmentFormComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'enrollments/:id', 
+    component: EnrollmentDetailComponent,
+    canActivate: [AuthGuard]
+  },
+  
+  // Redirección para rutas no encontradas
+  { 
+    path: '**', 
+    redirectTo: ''
+  }
 ];

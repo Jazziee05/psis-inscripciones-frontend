@@ -11,34 +11,88 @@
 <div class="card" *ngIf="!loadingData">
   <form [formGroup]="enrollmentForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="student">Alumno *</label>
-      <select 
-        id="student" 
-        formControlName="student"
-        [class.error]="f['student'].invalid && f['student'].touched"
-      >
-        <option value="">Seleccione un alumno</option>
-        <option *ngFor="let student of students" [value]="student.id">
-          {{ student.last_name }}, {{ student.first_name }} ({{ student.id_number }})
-        </option>
-      </select>
+      <label for="studentSearch">Alumno *</label>
+      <div class="student-autocomplete">
+        <input
+          id="studentSearch"
+          type="text"
+          formControlName="studentSearch"
+          autocomplete="off"
+          placeholder="Escribe el nombre, apellido o cédula"
+          (focus)="onStudentSearchFocus()"
+          (blur)="onStudentSearchBlur()"
+          [class.error]="f['student'].invalid && f['student'].touched"
+        />
+
+        <div
+          class="student-suggestions"
+          *ngIf="showStudentSuggestions"
+          role="listbox"
+          aria-label="Resultados de búsqueda de alumnos"
+        >
+          <div class="suggestion-info" *ngIf="searchingStudents">Buscando alumnos...</div>
+          <div class="suggestion-info" *ngIf="!searchingStudents && filteredStudents.length === 0">
+            Sin coincidencias
+          </div>
+          <button
+            type="button"
+            class="suggestion-item"
+            *ngFor="let student of filteredStudents"
+            (mousedown)="selectStudent(student)"
+            role="option"
+          >
+            <span class="suggestion-name">{{ student.last_name }}, {{ student.first_name }}</span>
+            <span class="suggestion-extra">{{ student.id_number }} · {{ student.email }}</span>
+          </button>
+        </div>
+      </div>
+
+      <input type="hidden" formControlName="student" />
+
       <span class="error" *ngIf="f['student'].invalid && f['student'].touched">
         <span *ngIf="f['student'].errors?.['required']">Debe seleccionar un alumno</span>
       </span>
     </div>
 
     <div class="form-group">
-      <label for="course">Curso *</label>
-      <select 
-        id="course" 
-        formControlName="course"
-        [class.error]="f['course'].invalid && f['course'].touched"
-      >
-        <option value="">Seleccione un curso</option>
-        <option *ngFor="let course of courses" [value]="course.id">
-          {{ course.code }} - {{ course.title }} (Capacidad: {{ course.capacity }})
-        </option>
-      </select>
+      <label for="courseSearch">Curso *</label>
+      <div class="course-autocomplete">
+        <input
+          id="courseSearch"
+          type="text"
+          formControlName="courseSearch"
+          autocomplete="off"
+          placeholder="Escribe el código o nombre del curso"
+          (focus)="onCourseSearchFocus()"
+          (blur)="onCourseSearchBlur()"
+          [class.error]="f['course'].invalid && f['course'].touched"
+        />
+
+        <div
+          class="course-suggestions"
+          *ngIf="showCourseSuggestions"
+          role="listbox"
+          aria-label="Resultados de búsqueda de cursos"
+        >
+          <div class="suggestion-info" *ngIf="searchingCourses">Buscando cursos...</div>
+          <div class="suggestion-info" *ngIf="!searchingCourses && filteredCourses.length === 0">
+            Sin coincidencias
+          </div>
+          <button
+            type="button"
+            class="suggestion-item"
+            *ngFor="let course of filteredCourses"
+            (mousedown)="selectCourse(course)"
+            role="option"
+          >
+            <span class="suggestion-name">{{ course.code }} - {{ course.title }}</span>
+            <span class="suggestion-extra">Capacidad: {{ course.capacity }} estudiantes</span>
+          </button>
+        </div>
+      </div>
+
+      <input type="hidden" formControlName="course" />
+
       <span class="error" *ngIf="f['course'].invalid && f['course'].touched">
         <span *ngIf="f['course'].errors?.['required']">Debe seleccionar un curso</span>
       </span>
