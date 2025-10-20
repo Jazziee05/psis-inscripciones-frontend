@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class CourseService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiBase}/api/courses`;
+  private apiUrl = `${environment.apiBase}/courses`;
 
   getCourses(page: number = 1, search: string = ''): Observable<ApiResponse<Course>> {
     let url = `${this.apiUrl}/?page=${page}`;

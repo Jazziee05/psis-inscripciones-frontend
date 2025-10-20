@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class EnrollmentService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiBase}/api/enrollments`;
+  private apiUrl = `${environment.apiBase}/enrollments`;
 
   getEnrollments(page: number = 1): Observable<ApiResponse<Enrollment>> {
     return this.http.get<ApiResponse<Enrollment>>(`${this.apiUrl}/?page=${page}`);
